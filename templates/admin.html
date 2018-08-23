@@ -1,0 +1,69 @@
+
+</script>
+
+<section>
+
+    <div class="list">
+
+    </div>
+    <div class="dataLoader"></div>
+    <p id="dmsg"></p>
+        <div class="list2">
+            {% for item in users %}
+                <div class="users">
+                <center>id: {{item.id}}</center>
+                <h3>{{item.username}}</h3>
+                <p>Email: {{item.email}}</p>
+                <p>Password: {{item.password}}</p>
+                </div>
+            {% else %}
+                <center>Unbelievable.  No users so far</center>
+            {% endfor %}
+        </div>
+
+        <div class="modal fade" id="audio" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+              <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                  <div class="modal-header">
+                    <button type="button" id="close" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                    <h4 class="modal-title" id="myModalLabel"></h4>
+                  </div>
+                  <div class="modal-body">
+                      <div class="wrapper">
+                          <canvas id="visualizer" width="560" height="200"></canvas>
+                          <iframe width="560" height="300" src="" frameborder="0" allowfullscreen></iframe>
+                              <form class="controls">
+                                    <div>
+                                      <label for="visual">Visualizer setting</label>
+                                      <select id="visual" name="visual">
+                                        <option value="sinewave" selected>Sinewave</option>
+                                        <option value="frequencybars">Frequency bars</option>
+                                      </select>
+                                    </div>
+                              </form>
+
+                          <audio id="a" controls src="" type="audio/mpeg">
+                            Your browser does not support the audio element.
+                          </audio>
+
+                          <small class="close rm_vid" aria-label="Close"><span aria-hidden="true">&times;</span><span>remove</span></small>
+
+                         <br/> <a href="" download="">Download</a>
+                      </div>
+                  </div>
+                  <div class="modal-footer">
+                    <button type="button" id="close" class="btn btn-default" data-dismiss="modal">Close</button>
+                  </div>
+              </div>
+            </div>
+
+        </div>
+
+        <div class="modal fade loding" tabindex="-1" role="dialog" aria-hidden="true">
+          <div class="modal-dialog modal-sm">
+            <div class="modal-content">
+              <div class="loadLoader"></div>
+            </div>
+          </div>
+        </div>
+</section>

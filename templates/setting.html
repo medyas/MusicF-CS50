@@ -1,0 +1,18 @@
+<section>
+    <center>
+        <form method="POST" action="{{ url_for('setting') }}">
+            <div class="form_siup">
+                <lable for="old">Old Password : </lable><input placeholder="Old Password" type="password" name="old"/>
+            </div>
+            <div class="form_siup">
+                <lable for="password">New Password : </lable><input placeholder="Password" type="password" name="password"/>
+            </div>
+            <div class="form_siup">
+                <lable for="confirmation">Confirmation : </lable><input placeholder="Confirmation" type="password" name="confirmation"/>
+            </div>
+            <div class="form_siup">
+                <input class="btn btn-primary btn-sm" type="submit" value="Submit"/>
+            </div>
+        </form>
+    </center>
+</section>

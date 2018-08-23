@@ -1,0 +1,157 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8"/>
+
+        <!-- Jquery lib -->
+        <script src="https://code.jquery.com/jquery-2.1.0.js"></script>
+
+        <!-- Latest compiled and minified JavaScript -->
+        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"
+        integrity="sha384-0mSbJDEHialfmuBBQP6A4Qrprq5OVfW37PRR3j5ELqxss1yVqOtnepnHVP9aJ7xS"
+        crossorigin="anonymous"></script>
+
+        <!-- My own JScript -->
+
+        <script type="text/javascript" src="../static/js/script.js"></script>
+
+
+        <!-- Latest compiled and minified CSS -->
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css"
+        integrity="sha384-1q8mTJOASx8j1Au+a5WDVnPi2lkFfwwEAa8hDDdjZlpLegxhjVME1fgjWPGmkzs7"
+        crossorigin="anonymous">
+
+        <!-- Optional theme -->
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap-theme.min.css"
+        integrity="sha384-fLW2N01lMqjakBkx3l/M9EahuwpSfeNvV63J5ezn3uZzapT0u7EYsXMjQV+0En5r"
+        crossorigin="anonymous">
+
+        <!-- My own CSS -->
+        <link rel="stylesheet" href="../static/styles/style.css" type="text/css" />
+
+        <link rel="icon" type="img/png" href="../static/img/wave.png">
+        <title>MusicF</title>
+    </head>
+
+    <body>
+<nav class="navbar navbar-default">
+  <div class="container-fluid">
+    <!-- Brand and toggle get grouped for better mobile display -->
+    <div class="navbar-header">
+      <a class="navbar-brand" href="/"><strong id="tit" class="act">MusicF</strong> <span><img id="ico" src="../static/img/wave.png"/></span></a>
+    </div>
+
+    <!-- Collect the nav links, forms, and other content for toggling -->
+    <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+      <ul class="nav navbar-nav">
+        <li><a href="/">Home</a></li>
+        <li><a href="{{ url_for('about') }}">About</a></li>
+        <li><a href="{{ url_for('contact') }}">Contact</a></li>
+      </ul>
+
+      <ul class="nav navbar-nav navbar-right">
+            <!-- Button trigger modal -->
+          {% if not session %}
+            <li data-toggle="modal" data-target="#snin">
+                <a href="#">Sign-In</a>
+            </li>
+          {% else %}
+            <li>
+            <div class="dropdown">
+              <li  data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" ><a id="user" href="{{ url_for('dashboard') }}">{{name }}<span class="caret"></span></a></li>
+              <ul class="dropdown-menu" aria-labelledby="dLabel">
+                <li><a href="{{ url_for('dashboard') }}">Dashboard</a></li>
+                <li><a href="{{ url_for('music') }}">My Music</a></li>
+                <li><a href="{{ url_for('setting') }}">Setting</a></li>
+                {% if session['username'] == 'medyas' %}
+                  <li><a href="{{ url_for('admin') }}">Admin</a></li>
+                {% endif %}
+                <li><a href="{{ url_for('logout') }}">Logout</a></li>
+              </ul>
+            </div>
+            </li>
+          {% endif %}
+
+<!-- Modal -->
+<div class="modal fade" id="snin" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+        <h5 class="modal-title" id="myModalLabel" >MusicF <span><img id="ico" src="../static/img/wave.png"/></span></h5>
+        <h4 class="modal-title" id="myModalLabel">Welcome Back</h4>
+      </div>
+      <div class="modal-body">
+        <h4 class="signin">Sign In</h4>
+          <div class="col-md-6">
+            <form action="{{ url_for('login') }}" method="Post" name="signin" onsubmit="return validateSignin()">
+              <div class="form_control">
+                <input placeholder="User name" type="text" name="username" data-toggle="tooltip" data-placement="left" title="Tooltip on left" autofocus required><span></span>
+              </div>
+              <div class="form_control">
+                <input placeholder="Password" type="password" name="password" data-toggle="tooltip" data-placement="left" title="Tooltip on left" required><span></span>
+              </div>
+              <div class="forg">
+                <a href="">Forget password ?</a>
+              </div>
+              <div class="but">
+                <button type="submit" class="btn btn-primary btn-lg">Sign-In</button>
+              </div>
+              </form>
+            </div>
+
+           <div class="col-md-6 rdiv">
+             <div>
+                <p>Not a member ?</p>
+                <p><a href="" class="signin" data-toggle="modal" data-target="#reg">Sign Up</a></p>
+                <p>Now it's free</p>
+              </div>
+           </div>
+      </div>
+      <div class="modal-footer">
+          <span class="form_control">CS50 Final project &copy; medyas</span>
+      </div>
+    </div>
+  </div>
+  <!-- Modal -->
+                    <div class="modal fade" id="reg" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+                      <div class="modal-dialog" role="document">
+                        <div class="modal-content">
+                          <div class="modal-header">
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                            <h5 class="modal-title" id="myModalLabel" >MusicF <span><img id="ico" src="../static/img/wave.png"/></span></h5>
+                            <h4 class="modal-title" id="myModalLabel">Welcome</h4>
+                          </div>
+                          <div class="modal-body">
+                            <h4 class="signin">Sign Up</h4>
+                             <form action="{{ url_for('register') }}" method="Post" name="signup" onsubmit="return validateSignup()">
+                               <div class="form_siup">
+                                  <label class="col-md-5" for="email">Email :</label><input placeholder="email@email.com" type="email" name="email" autofocus required><span id="email"></span>
+                                </div>
+                                <div class="form_siup">
+                                  <label class="col-md-5" for="username">Username :</label><input placeholder="User name" type="text" name="username" required><span id="username"></span>
+                                </div>
+                                <div class="form_siup">
+                                  <label class="col-md-5" for="password">Password :</label><input placeholder="Password" type="password" name="password" required><span id="password"></span>
+                                </div>
+                                <div class="form_siup">
+                                  <label class="col-md-5" for="confirmation">Confirmation :</label><input placeholder="Retype your password" type="password" name="confirmation" required><span id="confirmation"></span>
+                                </div>
+                                <div class="col-md-3">
+                                </div>
+                                <button type="submit" class="btn btn-primary btn-lg">Sign Up</button>
+                                </form>
+                          </div>
+                          <div class="modal-footer">
+                            <span class="form_control">CS50 Final project &copy; medyas</span>
+                            <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+</div>
+
+      </ul>
+    </div><!-- /.navbar-collapse -->
+  </div><!-- /.container-fluid -->
+</nav>
