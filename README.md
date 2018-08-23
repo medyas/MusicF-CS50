@@ -12,7 +12,7 @@ This web app is my CS50 final project. Developed in 2016, and consists of visual
 -YoutubeDl (for converting and getting the video mp3)
 
 ## Screenshots
-![main web interface](screenshots/1.jpg)
+![main web interface](screenshots/1.png)
 ![Login Modal interface](screenshots/2.png)
 ![Dashboard interface - displaying all the added videos by the users](screenshots/3.png)
 ![Video Modal - displaying the Video info plus alllwoing the visualization of the audio music](screenshots/4.png)
